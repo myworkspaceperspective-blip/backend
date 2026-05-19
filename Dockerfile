@@ -5,6 +5,8 @@ WORKDIR /app
 
 COPY package*.json ./
 COPY prisma ./prisma/
+# Copy Prisma config — Prisma 7 needs this to locate schema + datasource URL
+COPY prisma.config.ts ./
 
 RUN npm ci
 
@@ -24,6 +26,7 @@ COPY --from=builder /app/package*.json ./
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/prisma ./prisma
 COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/prisma.config.ts ./
 
 # Run database migrations then start app
 CMD ["sh", "-c", "npx prisma migrate deploy && node dist/main"]
