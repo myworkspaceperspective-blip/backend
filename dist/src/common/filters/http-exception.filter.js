@@ -16,9 +16,13 @@ let HttpExceptionFilter = class HttpExceptionFilter {
         const status = exception instanceof common_1.HttpException
             ? exception.getStatus()
             : common_1.HttpStatus.INTERNAL_SERVER_ERROR;
+        if (status === common_1.HttpStatus.INTERNAL_SERVER_ERROR) {
+            console.error('Unhandled Exception on', request.method, request.url, exception);
+        }
         const message = exception instanceof common_1.HttpException
             ? exception.getResponse()
-            : 'Internal server error';
+            : (exception instanceof Error ? exception.message : 'Internal server error');
+        const stack = exception instanceof Error ? exception.stack : undefined;
         response.status(status).json({
             statusCode: status,
             timestamp: new Date().toISOString(),
@@ -26,6 +30,7 @@ let HttpExceptionFilter = class HttpExceptionFilter {
             message: typeof message === 'object' && 'message' in message
                 ? message.message
                 : message,
+            errorDetails: stack,
         });
     }
 };
