@@ -18,7 +18,7 @@ const users_service_1 = require("./users.service");
 const jwt_auth_guard_1 = require("../auth/guards/jwt-auth.guard");
 const roles_guard_1 = require("../auth/guards/roles.guard");
 const roles_decorator_1 = require("../auth/decorators/roles.decorator");
-const client_1 = require("../../node_modules/.prisma/client");
+const client_1 = require("@prisma/client");
 let UsersController = class UsersController {
     users;
     constructor(users) {

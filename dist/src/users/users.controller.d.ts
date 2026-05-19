@@ -10,7 +10,7 @@ export declare class UsersController {
         id: string;
         email: string;
         name: string;
-        role: import(".prisma/client/client", { with: { "resolution-mode": "import" } }).$Enums.Role;
+        role: import("@prisma/client").$Enums.Role;
         isVerified: boolean;
         createdAt: Date;
     }>;
@@ -18,7 +18,7 @@ export declare class UsersController {
         id: string;
         email: string;
         name: string;
-        role: import(".prisma/client/client", { with: { "resolution-mode": "import" } }).$Enums.Role;
+        role: import("@prisma/client").$Enums.Role;
         isVerified: boolean;
         createdAt: Date;
     }[]>;

@@ -8,11 +8,11 @@ COPY prisma ./prisma/
 
 RUN npm ci
 
+# Generate Prisma Client BEFORE building so TypeScript has the types
+RUN npx prisma generate
+
 COPY . .
 RUN npm run build
-
-# Generate Prisma Client
-RUN npx prisma generate
 
 # Stage 2: Production image
 FROM node:20-alpine AS production

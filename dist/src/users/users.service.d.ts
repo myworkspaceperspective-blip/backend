@@ -1,5 +1,5 @@
 import { PrismaService } from '../prisma/prisma.service';
-import { Role } from '../../node_modules/.prisma/client';
+import { Role } from '@prisma/client';
 export declare class UsersService {
     private prisma;
     constructor(prisma: PrismaService);
@@ -7,7 +7,7 @@ export declare class UsersService {
         id: string;
         email: string;
         name: string;
-        role: import(".prisma/client/client", { with: { "resolution-mode": "import" } }).$Enums.Role;
+        role: import("@prisma/client").$Enums.Role;
         isVerified: boolean;
         createdAt: Date;
     }>;
@@ -15,7 +15,7 @@ export declare class UsersService {
         id: string;
         email: string;
         name: string;
-        role: import(".prisma/client/client", { with: { "resolution-mode": "import" } }).$Enums.Role;
+        role: import("@prisma/client").$Enums.Role;
         isVerified: boolean;
         createdAt: Date;
     }[]>;

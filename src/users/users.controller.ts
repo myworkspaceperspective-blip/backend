@@ -4,7 +4,7 @@ import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { Roles } from '../auth/decorators/roles.decorator';
 import { JwtPayload } from '../auth/strategies/jwt.strategy';
-import { Role } from '../../node_modules/.prisma/client';
+import { Role } from '@prisma/client';
 
 interface RequestWithUser extends Request {
   user: JwtPayload;
