@@ -18,7 +18,15 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "seed": "ts-node prisma/seed.ts"
+    "seed": "ts-node prisma/seed.ts",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate:dev": "prisma migrate dev",
+    "prisma:migrate:deploy": "prisma migrate deploy",
+    "prisma:studio": "prisma studio",
+    "prisma:reset": "prisma migrate reset",
+    "prisma:seed": "ts-node prisma/seed.ts",
+    "docker:build": "docker build -t shopapp-backend .",
+    "docker:run": "docker run --env-file .env -p 3001:3001 shopapp-backend"
   },
   "prisma": {
     "seed": "ts-node prisma/seed.ts"
