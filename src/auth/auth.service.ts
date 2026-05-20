@@ -45,6 +45,7 @@ export class AuthService {
         email: dto.email,
         password: hashed,
         verifyToken,
+        isVerified: true, // Auto-verify to bypass Render SMTP restrictions
       },
     });
 
@@ -65,8 +66,8 @@ export class AuthService {
     const valid = await bcrypt.compare(dto.password, user.password);
     if (!valid) throw new UnauthorizedException('Invalid credentials');
 
-    if (!user.isVerified)
-      throw new UnauthorizedException('Please verify your email first');
+    // if (!user.isVerified)
+    //   throw new UnauthorizedException('Please verify your email first');
 
     const payload: JwtPayload = {
       sub: user.id,

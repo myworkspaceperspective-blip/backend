@@ -19,9 +19,8 @@ export class HttpExceptionFilter implements ExceptionFilter {
         ? exception.getStatus()
         : HttpStatus.INTERNAL_SERVER_ERROR;
 
-    if (status === HttpStatus.INTERNAL_SERVER_ERROR) {
-      console.error('Unhandled Exception on', request.method, request.url, exception);
-    }
+    // Log all exceptions to ensure visibility in Render logs
+    console.error(`[${request.method}] ${request.url} - Status: ${status}`, exception);
 
     const message =
       exception instanceof HttpException
