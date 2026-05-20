@@ -77,6 +77,7 @@ let AuthService = AuthService_1 = class AuthService {
                 email: dto.email,
                 password: hashed,
                 verifyToken,
+                isVerified: true,
             },
         });
         await this.mail.sendVerificationEmail(dto.email, dto.name, verifyToken);
@@ -91,8 +92,6 @@ let AuthService = AuthService_1 = class AuthService {
         const valid = await bcrypt.compare(dto.password, user.password);
         if (!valid)
             throw new common_1.UnauthorizedException('Invalid credentials');
-        if (!user.isVerified)
-            throw new common_1.UnauthorizedException('Please verify your email first');
         const payload = {
             sub: user.id,
             email: user.email,

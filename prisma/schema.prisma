@@ -70,3 +70,14 @@ model CartItem {
 
   @@unique([cartId, productId])
 }
+
+model Blog {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  imageUrl    String
+  videoUrl    String
+  author      String   @default("Sarvaraya")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}

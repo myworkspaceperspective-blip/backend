@@ -14,7 +14,7 @@ async function bootstrap() {
     app.use((0, helmet_1.default)());
     app.use(cookieParser());
     app.enableCors({
-        origin: process.env.FRONTEND_URL ?? 'http://localhost:3000',
+        origin: true,
         credentials: true,
         methods: ['GET', 'POST', 'PATCH', 'PUT', 'DELETE', 'OPTIONS'],
         allowedHeaders: ['Content-Type', 'Authorization'],
