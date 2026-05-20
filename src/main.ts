@@ -14,9 +14,9 @@ async function bootstrap(): Promise<void> {
   // Cookie parsing
   app.use(cookieParser());
 
-  // CORS — allow only frontend origin
+  // CORS — allow all origins for now to prevent Vercel connection issues
   app.enableCors({
-    origin: process.env.FRONTEND_URL ?? 'http://localhost:3000',
+    origin: true,
     credentials: true,
     methods: ['GET', 'POST', 'PATCH', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
