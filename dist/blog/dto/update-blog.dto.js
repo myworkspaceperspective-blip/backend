@@ -30,12 +30,12 @@ __decorate([
     __metadata("design:type", String)
 ], UpdateBlogDto.prototype, "description", void 0);
 __decorate([
-    (0, class_validator_1.IsUrl)(),
+    (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], UpdateBlogDto.prototype, "imageUrl", void 0);
 __decorate([
-    (0, class_validator_1.IsUrl)(),
+    (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], UpdateBlogDto.prototype, "videoUrl", void 0);
