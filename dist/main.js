@@ -12,6 +12,8 @@ const http_exception_filter_1 = require("./common/filters/http-exception.filter"
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
     app.use((0, helmet_1.default)());
+    app.useBodyParser('json', { limit: '50mb' });
+    app.useBodyParser('urlencoded', { limit: '50mb', extended: true });
     app.use(cookieParser());
     app.enableCors({
         origin: true,
