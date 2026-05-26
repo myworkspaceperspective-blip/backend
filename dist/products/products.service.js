@@ -17,13 +17,48 @@ let ProductsService = class ProductsService {
     constructor(prisma) {
         this.prisma = prisma;
     }
-    async findAll() {
+    async findAll(categoryId) {
         return this.prisma.product.findMany({
+            where: {
+                ...(categoryId ? { categoryId } : {}),
+                isAvailable: true,
+            },
+            include: { category: true },
+            orderBy: { createdAt: 'desc' },
+        });
+    }
+    async findAllAdmin() {
+        return this.prisma.product.findMany({
+            include: { category: true },
             orderBy: { createdAt: 'desc' },
         });
     }
     async findById(id) {
-        return this.prisma.product.findUniqueOrThrow({ where: { id } });
+        const p = await this.prisma.product.findUnique({
+            where: { id },
+            include: { category: true },
+        });
+        if (!p)
+            throw new common_1.NotFoundException('Food item not found');
+        return p;
+    }
+    async create(dto) {
+        return this.prisma.product.create({
+            data: dto,
+            include: { category: true },
+        });
+    }
+    async update(id, dto) {
+        await this.findById(id);
+        return this.prisma.product.update({
+            where: { id },
+            data: dto,
+            include: { category: true },
+        });
+    }
+    async remove(id) {
+        await this.findById(id);
+        return this.prisma.product.delete({ where: { id } });
     }
     async totalCount() {
         return this.prisma.product.count();

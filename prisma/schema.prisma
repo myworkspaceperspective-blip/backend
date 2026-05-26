@@ -11,20 +11,30 @@ enum Role {
   ADMIN
 }
 
+enum OrderStatus {
+  PENDING
+  CONFIRMED
+  PREPARING
+  OUT_FOR_DELIVERY
+  DELIVERED
+  CANCELLED
+}
+
 model User {
-  id               String    @id @default(cuid())
+  id               String         @id @default(cuid())
   name             String
-  email            String    @unique
+  email            String         @unique
   password         String
-  role             Role      @default(USER)
-  isVerified       Boolean   @default(false)
+  role             Role           @default(USER)
+  isVerified       Boolean        @default(false)
   verifyToken      String?
   resetToken       String?
   resetTokenExpiry DateTime?
-  createdAt        DateTime  @default(now())
-  updatedAt        DateTime  @updatedAt
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
   cart             Cart?
   refreshTokens    RefreshToken[]
+  orders           Order[]
 }
 
 model RefreshToken {
@@ -36,17 +46,30 @@ model RefreshToken {
   createdAt DateTime @default(now())
 }
 
+model Category {
+  id          String    @id @default(cuid())
+  name        String    @unique
+  description String?
+  image       String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  products    Product[]
+}
+
 model Product {
-  id          String     @id @default(cuid())
+  id          String      @id @default(cuid())
   name        String
   description String
   price       Float
   image       String
-  category    String
-  stock       Int        @default(0)
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
+  categoryId  String?
+  category    Category?   @relation(fields: [categoryId], references: [id])
+  stock       Int         @default(100)
+  isAvailable Boolean     @default(true)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
   cartItems   CartItem[]
+  orderItems  OrderItem[]
 }
 
 model Cart {
@@ -71,13 +94,40 @@ model CartItem {
   @@unique([cartId, productId])
 }
 
+model Order {
+  id            String      @id @default(cuid())
+  userId        String
+  user          User        @relation(fields: [userId], references: [id])
+  items         OrderItem[]
+  total         Float
+  status        OrderStatus @default(PENDING)
+  paymentMethod String      @default("DEMO_CARD")
+  address       String?
+  phone         String?
+  note          String?
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+}
+
+model OrderItem {
+  id        String  @id @default(cuid())
+  orderId   String
+  order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
+  quantity  Int
+  price     Float
+
+  createdAt DateTime @default(now())
+}
+
 model Blog {
   id          String   @id @default(cuid())
   title       String
   description String
   imageUrl    String
   videoUrl    String
-  author      String   @default("Sarvaraya")
+  author      String   @default("Sarvarays Food Court")
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }

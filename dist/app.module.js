@@ -14,7 +14,9 @@ const prisma_module_1 = require("./prisma/prisma.module");
 const auth_module_1 = require("./auth/auth.module");
 const users_module_1 = require("./users/users.module");
 const products_module_1 = require("./products/products.module");
+const categories_module_1 = require("./categories/categories.module");
 const cart_module_1 = require("./cart/cart.module");
+const orders_module_1 = require("./orders/orders.module");
 const mail_module_1 = require("./mail/mail.module");
 const blog_module_1 = require("./blog/blog.module");
 let AppModule = class AppModule {
@@ -29,7 +31,9 @@ exports.AppModule = AppModule = __decorate([
             auth_module_1.AuthModule,
             users_module_1.UsersModule,
             products_module_1.ProductsModule,
+            categories_module_1.CategoriesModule,
             cart_module_1.CartModule,
+            orders_module_1.OrdersModule,
             mail_module_1.MailModule,
             blog_module_1.BlogModule,
         ],
