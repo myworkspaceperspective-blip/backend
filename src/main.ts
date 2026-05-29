@@ -44,8 +44,8 @@ async function bootstrap(): Promise<void> {
     new ClassSerializerInterceptor(app.get(Reflector)),
   );
 
-  // API prefix
-  app.setGlobalPrefix('api');
+  // API prefix - exclude root '/' to let Render health check pings return a clean 200 OK
+  app.setGlobalPrefix('api', { exclude: ['/'] });
 
   const port = process.env.PORT ?? 3001;
   await app.listen(port);

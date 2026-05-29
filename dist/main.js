@@ -28,7 +28,7 @@ async function bootstrap() {
     }));
     app.useGlobalFilters(new http_exception_filter_1.HttpExceptionFilter());
     app.useGlobalInterceptors(new common_1.ClassSerializerInterceptor(app.get(core_1.Reflector)));
-    app.setGlobalPrefix('api');
+    app.setGlobalPrefix('api', { exclude: ['/'] });
     const port = process.env.PORT ?? 3001;
     await app.listen(port);
 }
